@@ -126,7 +126,7 @@ class index extends PureComponent {
             }  
         }
     render() {
-        const {activeCategoryName, categories, products, filters, totalPage, loading} = this.state;
+        const {activeCategoryName, categories, products, filters, totalPage} = this.state;
         
         return (
             <div className="container product_section_container">

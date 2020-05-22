@@ -1,31 +1,29 @@
 import React, { PureComponent } from 'react';
-import './DealOfTheWeak.css';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import './DealOfTheWeak.css';
 
 class DealOfTheWeak extends PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
+			currentSecond: 59,
 			minuteState : 45,
 		}
 	}
 	componentDidMount() {
-		const {seconds} = this.props;
-		this.countdown(seconds);
+		this.timer = setInterval(() => {
+			this.setState(prevState => ({
+				currentSecond: prevState.currentSecond -1,
+			}));
+		}, 1000)
 	}
-	countdown = (seconds) => {
-		
-		if (seconds === -1) return;
-		
-		this.setState({ secondState: seconds });
 	
-		setTimeout(() => {
-		  this.countdown(seconds - 1);
-		}, 1000);
-	  };
+	componentWillUnmount() {
+		if (this.timer) {clearInterval(this.timer)}
+	}
+
     render() {
-		const {secondState, minuteState} = this.state;
+		const {currentSecond, minuteState} = this.state;
         return (
         
             <div className="deal_ofthe_week">
@@ -55,7 +53,7 @@ class DealOfTheWeak extends PureComponent {
 								<div className="timer_unit">Mins</div>
 							</li>
 							<li className="d-inline-flex flex-column justify-content-center align-items-center">
-								<div id="second" className="timer_num">{secondState}</div>
+								<div id="second" className="timer_num">{currentSecond}</div>
 								<div className="timer_unit">Sec</div>
 							</li>
 						</ul>
@@ -72,9 +70,7 @@ class DealOfTheWeak extends PureComponent {
 }
 
 DealOfTheWeak.propTypes = {
-	seconds: PropTypes.number.isRequired,
 };
 DealOfTheWeak.defaultProps = {
-	seconds: 59,
 }
 export default DealOfTheWeak;

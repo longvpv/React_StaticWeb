@@ -13,6 +13,7 @@ import CartPage from './containers/CartPage';
 import HomePage from './containers/HomePage';
 import ProductDetailPage from './containers/ProductDetailPage';
 import ShopPage from './containers/ShopPage';
+import Contact from './containers/ContactPage';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/ShopPage" component={ShopPage} />
         <Route path="/products/:productId" component={ProductDetailPage} />
         <Route path="/Cart" component={CartPage} />
+        <Route path="/Contact" component={Contact} />
       </Switch>
         <Benefit />
         <Footer />
@@ -38,7 +40,6 @@ function App() {
 }
 
 App.propTypes = {
-  // itemQuantity: PropTypes.number.isRequired,
 
   addToCart: PropTypes.func.isRequired,
   removeItem : PropTypes.func.isRequired,

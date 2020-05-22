@@ -15,6 +15,7 @@ class Breadcrumbs extends PureComponent {
 		this.state = {
 			activeImagePosition: 0,
 			modalShow: false,
+			productQuantity: 1,
 		}
 	};
 
@@ -23,30 +24,38 @@ class Breadcrumbs extends PureComponent {
 		this.setState({activeImagePosition});
 	}
 
-	
+	handleClose = () => {
+		const modalShow = false;
+		this.setState({modalShow})
+	}
+
+	handleIncreClick = () => {
+		const productQuantity = this.state.productQuantity + 1;
+		this.setState({productQuantity})
+	}
+
+	handleDecreClick = () => {
+		const productQuantity = this.state.productQuantity - 1;
+		this.setState({productQuantity})
+	}
+
 	handleAddToCartClick = (product) => {
 		const item = {
 			id: product.id,
 			name: product.name, 
 			price: product.salePrice , 
 			pic:product.images[0], 
-			quantity: 1,
+			quantity: this.state.productQuantity,
 		};
 		console.log(item);
 		this.props.addToCart(item);
 		const modalShow = true;
 		this.setState({modalShow})
-
 	}
-
-	handleClose = () => {
-		const modalShow = false;
-		this.setState({modalShow})
-	}
-
+	
     render() {
 		const {product, productImages, categoryName} = this.props;
-		const { activeImagePosition, modalShow} = this.state;
+		const { activeImagePosition, modalShow, productQuantity} = this.state;
 
         return ( 
             <div>
@@ -137,9 +146,9 @@ class Breadcrumbs extends PureComponent {
 					<div className="quantity d-flex flex-column flex-sm-row align-items-sm-center">
 						<span>Quantity:</span>
 						<div className="quantity_selector">
-							<span className="minus"><i className="fa fa-minus" aria-hidden="true"></i></span>
-							<span id="quantity_value">1</span>
-							<span className="plus"><i className="fa fa-plus" aria-hidden="true"></i></span>
+							<span onClick={this.handleDecreClick} className="minus"><i className="fa fa-minus" aria-hidden="true"></i></span>
+							<span id="quantity_value">{productQuantity}</span>
+							<span onClick={this.handleIncreClick} className="plus"><i className="fa fa-plus" aria-hidden="true"></i></span>
 						</div>
 						<div onClick={() => this.handleAddToCartClick(product)} className="red_button" style={{marginLeft:'2rem'}}>add to cart</div>
 						<div className="product_favorite d-flex flex-column align-items-center justify-content-center"></div>

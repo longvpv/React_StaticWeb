@@ -98,8 +98,13 @@ class Header extends PureComponent {
                         
                     </li>
                     <li>
-                    <a href="https://facebook.com">Contact</a>
-                        
+                        <NavLink
+                        to='/Contact'
+                        className="nav__link"
+                        activeClassName="nav__link--active"
+                        >
+                        Contact
+                        </NavLink>
                     </li>
                      </ul>
                     <ul className="navbar_user">
